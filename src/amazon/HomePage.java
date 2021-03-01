@@ -1,38 +1,55 @@
 package amazon;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class HomePage {
+    WebDriver driver;
+    String amazonUrl="https://www.amazon.com/";
+    String productName="Mask";
+    String searchBoxLocator="twotabsearchtextbox";
+    String searchButtonLocator="nav-search-submit-button";
 
-
-    public static void main(String[] args) throws InterruptedException {
-        // FireFoxBrowser
-        String fireFoxDriverPath = "BrowserDriver/windows/geckodriver.exe";
-        System.setProperty("webdriver.gecko.driver", fireFoxDriverPath);
-        WebDriver driver1 = new FirefoxDriver();
-        driver1.get("https://www.amazon.com/");
-        // Edge
-        String edgeDriverPath = "BrowserDriver/windows/msedgedriver.exe";
-        System.setProperty("webdriver.edge.driver", edgeDriverPath);
-        WebDriver driver2 = new EdgeDriver();
-        driver2.get("https://www.amazon.com/");
-
-        // ChromeBrowser
+    @BeforeMethod
+    public void setUp(){
         String chromeDriverPath = "BrowserDriver/windows/chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.amazon.com/");
-        Thread.sleep(5000);
-        driver.close();
-
-
-
-
-
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.get(amazonUrl);
     }
+
+
+
+    // Action Method
+    public void checkSearchBox(){
+        // Enter product name
+        driver.findElement(By.id(searchBoxLocator)).sendKeys(productName);
+        // click on searchButton
+        driver.findElement(By.id(searchButtonLocator)).click();
+    }
+
+    @AfterMethod
+    public void tearDown(){
+       // driver.close();
+        driver.quit();
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }
