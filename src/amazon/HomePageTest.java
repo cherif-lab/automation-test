@@ -8,7 +8,7 @@ public class HomePageTest extends HomePage {
 
     @Test(priority = 2)
     public void testCheckSearchBox(){
-        checkSearchBox();
+        checkSearchBox();                              //*[@id="search"]/span/div/span/h1/div/div[1]/div/div/span[3]
         String expectedText="\"Mask\"";
         String actualText=driver.findElement(By.xpath("//*[@id=\"search\"]/span/div/span/h1/div/div[1]/div/div/span[3]")).getText();
         Assert.assertEquals(actualText,expectedText,"Product does not match");
